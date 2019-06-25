@@ -2,7 +2,7 @@
 
 ```vue
 <template>
-  <button-async :onClick="handleClick" type="danger"> BUTTON </button-async>
+  <base-button @click="handleClick" type="danger"> BUTTON </base-button>
 </template>
 
 <script>
