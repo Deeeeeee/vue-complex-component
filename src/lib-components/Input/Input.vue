@@ -23,6 +23,11 @@ export default {
   methods: {
     blur() {
       if (this.trim) {
+        /**
+         * 用户输入时触发
+         *
+         * @type {Function}
+         */
         this.$emit('input', this.$attrs.value.trim())
       }
     }

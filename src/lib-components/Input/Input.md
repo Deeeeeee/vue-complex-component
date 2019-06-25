@@ -2,7 +2,7 @@
 
 ```vue
 <template>
-  <base-input placeholder='请输入' v-model='text' @blur='handleBlur'></base-input>
+  <base-input placeholder='请输入' v-model='text' @blur='handleBlur' @input='handlerInput'></base-input>
 </template>
 
 <script>
@@ -14,7 +14,10 @@ export default {
   },
   methods: {
     handleBlur() {
-      console.log('text值为："' + this.text + '"')
+      console.log('失去焦点，text值为："' + this.text + '"')
+    },
+    handlerInput() {
+      console.log('输入中')
     }
   }
 }
