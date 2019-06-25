@@ -1,4 +1,5 @@
 <template>
+  <!-- 内部跳转Button -->
   <router-link v-if="link"
                class="el-button--link"
                :to="link"
@@ -7,6 +8,7 @@
       <slot></slot>
     </el-button>
   </router-link>
+  <!-- 外部跳转Button -->
   <a v-else-if="outLink"
      class="el-button--link"
      :href="outLink"
@@ -15,7 +17,7 @@
       <slot></slot>
     </el-button>
   </a>
-
+  <!-- 点击事件Button -->
   <el-button v-else
              v-bind="$attrs"
              :loading="onClick ? isLoading : loading"
@@ -33,6 +35,7 @@ export default {
     onClick: {
       type: Function
     },
+    /** 加载状态 */
     loading: {
       type: Boolean
     },
@@ -57,9 +60,7 @@ export default {
   },
   watch: {},
   computed: {},
-  created() {
-    console.log(this.$route)
-  },
+  created() {},
   methods: {
     /** 点击事件 */
     handleClick() {

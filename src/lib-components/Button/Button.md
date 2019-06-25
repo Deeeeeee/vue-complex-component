@@ -1,4 +1,9 @@
-基本用法
+##### 功能介绍
+
+1.  异步请求 loading 处理
+2.  el-button 与 router-link 结合 实现按钮链接
+
+##### 基本用法
 
 ```vue
 <template>

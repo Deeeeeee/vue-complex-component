@@ -20,6 +20,7 @@ export default {
   },
   computed: {},
   mounted() {},
+  created() {},
   methods: {
     blur() {
       if (this.trim) {
