@@ -17,7 +17,8 @@ module.exports = {
   ribbon: {
     url: 'https://github.com/Deeeeeee/vue-complex-component'
   },
-  require: ['./styleguide/element-ui.js'],
+  renderRootJsx: path.join(__dirname, 'styleguide/root.js'),
+  require: [path.join(__dirname, 'styleguide/requires.js')],
   sections: [
     {
       name: 'Components',

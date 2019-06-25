@@ -32,7 +32,8 @@
     "release": "gren release --override"
   },
   "dependencies": {
-    "element-ui": "^2.9.2"
+    "element-ui": "2.9.2",
+    "vue-router": "2.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
