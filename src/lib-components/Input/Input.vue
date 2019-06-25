@@ -24,8 +24,7 @@ export default {
     blur() {
       if (this.trim) {
         /**
-         * 用户输入时触发
-         *
+         * 用户输入时触发，回调参数为input中的输入值
          * @type {Function}
          */
         this.$emit('input', this.$attrs.value.trim())

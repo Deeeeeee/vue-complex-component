@@ -16,8 +16,8 @@ export default {
     handleBlur() {
       console.log('失去焦点，text值为："' + this.text + '"')
     },
-    handlerInput() {
-      console.log('输入中')
+    handlerInput(e) {
+      console.log('输入中，"' + e + '"')
     }
   }
 }
