@@ -1,0 +1,34 @@
+<template>
+  <el-input v-bind='$attrs'
+            v-on="$listeners"
+            @blur="blur"></el-input>
+</template>
+
+<script>
+export default {
+  name: 'BaseInput',
+  components: {},
+  props: {
+    /** v-model的值是否去掉前后空格*/
+    trim: {
+      type: Boolean,
+      default: true
+    }
+  },
+  data() {
+    return {}
+  },
+  computed: {},
+  mounted() {},
+  methods: {
+    blur() {
+      if (this.trim) {
+        this.$emit('input', this.$attrs.value.trim())
+      }
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+</style>
