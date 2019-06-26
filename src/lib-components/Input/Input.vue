@@ -1,7 +1,19 @@
 <template>
   <el-input v-bind='$attrs'
             v-on="$listeners"
-            @blur="blur"></el-input>
+            @blur="blur">
+    <template slot='prefix'>
+      <slot name='prefix'></slot>
+    </template>
+    <template slot='suffix'>
+      <slot name='suffix'></slot>
+    </template> <template slot='prepend'>
+      <slot name='prepend'></slot>
+    </template>
+    <template slot='append'>
+      <slot name='append'></slot>
+    </template>
+  </el-input>
 </template>
 
 <script>
