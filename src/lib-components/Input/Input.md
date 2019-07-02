@@ -9,6 +9,10 @@
 <div>
   Text: {{text}}
   <base-input placeholder="自动trim" v-model="text" @blur="handleBlur"></base-input>
+  slot：
+  <base-input placeholder="自动trim" v-model="text" @blur="handleBlur">
+    <i slot="suffix" class="el-input__icon el-icon-date"></i>
+  </base-input>
 </div>
 </template>
 
