@@ -1,5 +1,5 @@
 <template>
-  <el-input v-bind='$attrs'
+  <el-input v-bind="$attrs"
             v-on="$listeners"
             @blur="blur"></el-input>
 </template>
