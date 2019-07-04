@@ -158,7 +158,9 @@ export default {
     }
   },
   methods: {
-    onSelect(item) {},
+    onSelect(item) {
+      console.log(item)
+    },
     handleClick2() {
       this.$message('click button2')
     }

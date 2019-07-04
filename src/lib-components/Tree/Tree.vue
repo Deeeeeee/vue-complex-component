@@ -2,7 +2,7 @@
  * @Description: 树形列表组件 支持跨树拖拽 隐藏指定项
  * @Author: Dean
  * @Date: 2019-07-02 10:29:01
- * @LastEditTime: 2019-07-04 11:47:59
+ * @LastEditTime: 2019-07-04 15:03:39
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -45,6 +45,7 @@
                  :data="item[props.children || 'children']"
                  :class="{fold: _isFold(item.uid)}"
                  v-show="!_isFold(item.uid)"
+                 :handleItemClick="handleItemClick"
                  :group="group"
                  :props="props"
                  :depth="depth + 1"
