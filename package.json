@@ -31,11 +31,12 @@
     "stdver": "standard-version -m '[skip ci] chore(release): v%s'",
     "release": "gren release --override"
   },
-  "dependencies": {
+  "peerDependencies": {
     "element-ui": "2.9.2",
     "vue-router": "2.7.0",
     "vuedraggable": "^2.23.0"
   },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/plugin-transform-runtime": "^7.4.3",
