@@ -2,12 +2,13 @@
  * @Description: 树形列表组件 支持跨树拖拽 隐藏指定项
  * @Author: Dean
  * @Date: 2019-07-02 10:29:01
- * @LastEditTime: 2019-07-03 21:31:15
+ * @LastEditTime: 2019-07-04 11:47:59
  * @LastEditors: Please set LastEditors
  -->
 <template>
   <draggable class="base-tree drag-area"
              tag="ul"
+             ref="BaseTree"
              v-bind="$attrs"
              v-on="$listeners"
              ghostClass="tree-gost"
@@ -21,8 +22,9 @@
     <!-- {{'attrs:' + JSON.stringify($attrs)}} -->
     <!-- {{'current:' + this.current}} -->
 
+    <!-- <transition-group type="transition" :name="!drag ? 'flip-list' : null"> -->
     <!-- <transition-group type="transition"
-                      :name="!drag ? 'flip-list' : null"> -->
+                      name="flip-list"> -->
     <li v-for="item in realValue"
         v-if="!(item[hidden.key] && item[hidden.key] === hidden.value)"
         class="base-tree-item"
@@ -45,6 +47,7 @@
                  v-show="!_isFold(item.uid)"
                  :group="group"
                  :props="props"
+                 :depth="depth + 1"
                  :hidden="hidden">
         <template slot="label"
                   slot-scope="{item}">
@@ -118,6 +121,11 @@ export default {
     current: {
       type: String,
       default: ''
+    },
+    /** 层深*/
+    depth: {
+      type: Number,
+      default: 1
     }
   },
   data() {
@@ -141,10 +149,22 @@ export default {
     onStart(event) {
       // console.log(event.originalEvent.ctrlKey)
     },
+    onOver(event) {
+      console.log(1)
+    },
+
     onMove(evt, originalEvent) {
+      // this.$refs.BaseTree.save()
+      // console.log(originalEvent.clientY)
       // console.log(evt.dragged)
       // console.log(evt.draggedRect)
-      // console.log(evt.related)
+      // console.log(evt.dragged.className)
+      // if (document.querySelector('.border-current')) {
+      //   document
+      //     .querySelector('.border-current')
+      //     .classList.remove('border-current')
+      // }
+      // evt.related.classList.add('border-current')
       // console.log(evt.relatedRect)
       // console.log(originalEvent.clientY)
     },
@@ -259,6 +279,7 @@ p {
   padding-left: 20px;
   cursor: pointer;
   border: solid #ececec 1px;
+  background-color: #fff;
   transition: 0.3s;
 }
 
@@ -269,10 +290,11 @@ p {
   background-color: darkseagreen;
 }
 .el-icon-caret-bottom {
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   margin-top: -7px;
-  left: 5px;
+  left: 5px; */
+  margin-left: -18px;
   transition: 0.3s;
   width: 14px;
   height: 14px;
@@ -289,5 +311,8 @@ p {
 
 .tree-gost {
   /* background-color: aliceblue; */
+}
+.border-current {
+  border: 1px solid blue;
 }
 </style>

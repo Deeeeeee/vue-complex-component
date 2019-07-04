@@ -14,7 +14,7 @@
   </el-row>
   <el-row :gutter="20">
     <el-col :span="12" class="box">
-      <base-tree :data="data" :props="{label: 'name',key:'uid'}" :group="{name:'group',animation: 200,}" :hidden="{key:'hidden', value: true}" :handleItemClick="onSelect">
+      <base-tree :data="data" :props="{label: 'name',key:'uid'}" :group="{name:'group'}" :hidden="{key:'hidden', value: true}" :handleItemClick="onSelect">
         <template slot="label" slot-scope="{item}">
           {{item.name}}
           <i class="el-icon-circle-plus-outline icon"></i>
