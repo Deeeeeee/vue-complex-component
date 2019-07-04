@@ -22,7 +22,7 @@ module.exports = {
   sections: [
     {
       name: 'Components',
-      components: 'src/lib-components/**/*.vue',
+      components: 'src/lib-components/*[^components]*/*.vue',
       usageMode: 'expand'
     }
     // {
