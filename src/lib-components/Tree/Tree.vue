@@ -2,9 +2,11 @@
  * @Description: 树形列表组件 支持跨树拖拽 隐藏指定项
  * @Author: Dean
  * @Date: 2019-07-02 10:29:01
- * @LastEditTime: 2019-07-04 15:03:39
+ * @LastEditTime: 2019-07-05 21:05:44
  * @LastEditors: Please set LastEditors
- -->
+ * @Todo 1.背景色修改 2.返回索引
+-->
+
 <template>
   <draggable class="base-tree drag-area"
              tag="ul"
@@ -25,7 +27,7 @@
     <!-- <transition-group type="transition" :name="!drag ? 'flip-list' : null"> -->
     <!-- <transition-group type="transition"
                       name="flip-list"> -->
-    <li v-for="item in realValue"
+    <li v-for="(item,index) in realValue"
         v-if="!(item[hidden.key] && item[hidden.key] === hidden.value)"
         class="base-tree-item"
         :key="item[props.key || 'id']">
@@ -37,7 +39,8 @@
            :class="{fold: _isFold(item.uid)}"
            @click.stop="toggleFold(item.uid)"></i>
         <slot name="label"
-              :item="item">
+              :item="item"
+              :$index="index">
           {{ item[props.label || 'label'] }}
         </slot>
       </p>
@@ -51,9 +54,10 @@
                  :depth="depth + 1"
                  :hidden="hidden">
         <template slot="label"
-                  slot-scope="{item}">
+                  slot-scope="{item, $index}">
           <slot name="label"
-                :item="item">
+                :item="item"
+                :$index="$index">>
             <!-- {{ item[props.label || 'label'] }} -->
           </slot>
         </template>
@@ -266,10 +270,6 @@ p {
   /* padding-bottom: 5px; */
   /* padding-left: 0; */
 }
-.base-tree.fold {
-  /* height: 0; */
-  /* overflow: hidden; */
-}
 .base-tree-item {
   padding-left: 20px;
   line-height: 40px;
@@ -283,12 +283,11 @@ p {
   background-color: #fff;
   transition: 0.3s;
 }
-
+/*
 .base-tree-item-inner:hover {
-  /* background-color: aliceblue; */
-}
+} */
 .base-tree-item-inner.current {
-  background-color: darkseagreen;
+  background-color: aliceblue;
 }
 .el-icon-caret-bottom {
   /* position: absolute;
@@ -308,12 +307,5 @@ p {
 
 .flip-list-move {
   transition: transform 0.5s;
-}
-
-.tree-gost {
-  /* background-color: aliceblue; */
-}
-.border-current {
-  border: 1px solid blue;
 }
 </style>

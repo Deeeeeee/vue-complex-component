@@ -15,8 +15,8 @@
   <el-row :gutter="20">
     <el-col :span="12" class="box">
       <base-tree :data="data" :props="{label: 'name',key:'uid'}" :group="{name:'group'}" :hidden="{key:'hidden', value: true}" :handleItemClick="onSelect">
-        <template slot="label" slot-scope="{item}">
-          {{item.name}}
+        <template slot="label" slot-scope="{item,$index}">
+          {{item.name}} - {{$index}}
           <i class="el-icon-circle-plus-outline icon"></i>
           <i class="el-icon-delete icon"></i>
         </template>
@@ -24,8 +24,8 @@
     </el-col>
     <el-col :span="12" class="box">
       <base-tree :data="data2" :props="{label: 'name',key:'uid'}" :group="{name:'group', pull: 'clone', put: false}">
-        <template slot="label" slot-scope="{item}">
-          {{item.name}} 
+        <template slot="label" slot-scope="{item,$index}">
+          {{item.name}} - {{$index}}
           <i class="el-icon-circle-plus-outline icon"></i>
           <i class="el-icon-delete icon"></i>
         </template>
