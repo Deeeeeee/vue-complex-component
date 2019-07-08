@@ -2,7 +2,7 @@
  * @Description: 树形列表组件 支持跨树拖拽 隐藏指定项
  * @Author: Dean
  * @Date: 2019-07-02 10:29:01
- * @LastEditTime: 2019-07-05 21:05:44
+ * @LastEditTime: 2019-07-08 14:02:38
  * @LastEditors: Please set LastEditors
  * @Todo 1.背景色修改 2.返回索引
 -->
@@ -149,7 +149,9 @@ export default {
       return EventBus.activeValue
     }
   },
-  created() {},
+  created() {
+    EventBus.$emit('active', '')
+  },
   methods: {
     onStart(event) {
       // console.log(event.originalEvent.ctrlKey)
@@ -252,6 +254,9 @@ export default {
       }
       return flag
     }
+  },
+  beforeDestroy() {
+    console.log(1)
   }
 }
 </script>
