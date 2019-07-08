@@ -12,8 +12,8 @@ export default new Vue({
   },
   methods: {
     active(value) {
-      // console.log('activeValue: ', this.activeValue)
-      // console.log('value:', value)
+      console.log('activeValue: ', this.activeValue)
+      console.log('value:', value)
       this.activeValue === value
         ? (this.activeValue = null)
         : (this.activeValue = value)
