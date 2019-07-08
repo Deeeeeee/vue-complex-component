@@ -12,9 +12,7 @@ export default new Vue({
   },
   methods: {
     active(value) {
-      this.activeValue === value
-        ? (this.activeValue = '')
-        : (this.activeValue = value)
+      this.activeValue === value ? null : (this.activeValue = value)
     }
   }
 })
