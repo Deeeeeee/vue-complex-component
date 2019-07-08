@@ -2,7 +2,7 @@
  * @Description: 树形列表组件 支持跨树拖拽 隐藏指定项
  * @Author: Dean
  * @Date: 2019-07-02 10:29:01
- * @LastEditTime: 2019-07-08 14:02:38
+ * @LastEditTime: 2019-07-08 14:25:57
  * @LastEditors: Please set LastEditors
  * @Todo 1.背景色修改 2.返回索引
 -->
@@ -10,7 +10,6 @@
 <template>
   <draggable class="base-tree drag-area"
              tag="ul"
-             ref="BaseTree"
              v-bind="$attrs"
              v-on="$listeners"
              ghostClass="tree-gost"
@@ -150,7 +149,9 @@ export default {
     }
   },
   created() {
-    EventBus.$emit('active', '')
+    if (this.depth === 1) {
+      EventBus.$emit('active', '')
+    }
   },
   methods: {
     onStart(event) {
@@ -159,7 +160,6 @@ export default {
     onOver(event) {
       console.log(1)
     },
-
     onMove(evt, originalEvent) {
       // this.$refs.BaseTree.save()
       // console.log(originalEvent.clientY)
@@ -255,9 +255,7 @@ export default {
       return flag
     }
   },
-  beforeDestroy() {
-    console.log(1)
-  }
+  beforeDestroy() {}
 }
 </script>
 

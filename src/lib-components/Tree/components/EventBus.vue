@@ -4,7 +4,7 @@ export default new Vue({
   name: 'EventBus',
   data() {
     return {
-      activeValue: ''
+      activeValue: null
     }
   },
   created() {
@@ -12,7 +12,11 @@ export default new Vue({
   },
   methods: {
     active(value) {
-      this.activeValue === value ? null : (this.activeValue = value)
+      // console.log('activeValue: ', this.activeValue)
+      // console.log('value:', value)
+      this.activeValue === value
+        ? (this.activeValue = null)
+        : (this.activeValue = value)
     }
   }
 })
