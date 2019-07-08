@@ -2,7 +2,7 @@
  * @Description: 树形列表组件 支持跨树拖拽 隐藏指定项
  * @Author: Dean
  * @Date: 2019-07-02 10:29:01
- * @LastEditTime: 2019-07-08 14:47:31
+ * @LastEditTime: 2019-07-08 15:24:48
  * @LastEditors: Please set LastEditors
  * @Todo 1.背景色修改 2.返回索引
 -->
@@ -149,7 +149,7 @@ export default {
     }
   },
   created() {
-    if (this.depth === 1) {
+    if (this.depth === 1 && this.handleItemClick) {
       EventBus.$emit('active', null)
     }
   },
@@ -185,8 +185,10 @@ export default {
     },
     /** 点击事件 */
     handleClick(item) {
-      EventBus.$emit('active', item.uid)
-      this.handleItemClick && this.handleItemClick(item)
+      if (this.handleItemClick) {
+        EventBus.$emit('active', item.uid)
+        this.handleItemClick(item)
+      }
     },
     /**
      * @description: 选中状态
