@@ -2,7 +2,7 @@
  * @Description: 树形列表组件 支持跨树拖拽 隐藏指定项
  * @Author: Dean
  * @Date: 2019-07-02 10:29:01
- * @LastEditTime: 2019-07-08 15:24:48
+ * @LastEditTime: 2019-07-09 16:01:04
  * @LastEditors: Please set LastEditors
  * @Todo 1.背景色修改 2.返回索引
 -->
@@ -13,6 +13,7 @@
              v-bind="$attrs"
              v-on="$listeners"
              ghostClass="tree-gost"
+             filter=".no-data"
              :clone="clone"
              :list="data"
              :group="group"
@@ -20,14 +21,10 @@
              :current="current"
              :move="onMove"
              @input="emitter">
-    <!-- {{'attrs:' + JSON.stringify($attrs)}} -->
-    <!-- {{'current:' + this.current}} -->
-
-    <!-- <transition-group type="transition" :name="!drag ? 'flip-list' : null"> -->
-    <!-- <transition-group type="transition"
-                      name="flip-list"> -->
+    <div class="no-data"
+         v-if="depth===1 && data.length === 0">暂无数据</div>
     <li v-for="(item,index) in realValue"
-        v-if="!(item[hidden.key] && item[hidden.key] === hidden.value)"
+        v-else
         class="base-tree-item"
         :key="item[props.key || 'id']">
       <p class="base-tree-item-inner"
@@ -47,6 +44,7 @@
                  :data="item[props.children || 'children']"
                  :class="{fold: _isFold(item.uid)}"
                  v-show="!_isFold(item.uid)"
+                 filter=".no-data"
                  :handleItemClick="handleItemClick"
                  :group="group"
                  :props="props"
@@ -62,7 +60,6 @@
         </template>
       </base-tree>
     </li>
-    <!-- </transition-group> -->
   </draggable>
 </template>
 
@@ -161,8 +158,6 @@ export default {
       console.log(1)
     },
     onMove(evt, originalEvent) {
-      // this.$refs.BaseTree.save()
-      // console.log(originalEvent.clientY)
       // console.log(evt.dragged)
       // console.log(evt.draggedRect)
       // console.log(evt.dragged.className)
@@ -312,5 +307,13 @@ p {
 
 .flip-list-move {
   transition: transform 0.5s;
+}
+.border-current {
+  border-top: 1px solid blueviolet;
+}
+.no-data {
+  color: #999;
+  line-height: 50px;
+  text-align: center;
 }
 </style>

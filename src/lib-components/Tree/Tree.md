@@ -40,67 +40,7 @@ export default {
   data() {
     return {
       current: '',
-      data: [
-        {
-          name: '河北省',
-          id: 1,
-          uid: '1',
-          children: [
-            {
-              name: '石家庄市',
-              id: 11,
-              uid: '11',
-              children: []
-            },
-            {
-              name: '保定市',
-              id: 12,
-              uid: '12',
-              children: [
-                {
-                  name: '驴肉火烧',
-                  hidden: true,
-                  id: 121,
-                  uid: '121',
-                  children: []
-                },
-                {
-                  name: '高碑店市',
-                  id: 122,
-                  uid: '122',
-                  children: []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          name: '浙江省',
-          id: 2,
-          uid: '2',
-          children: [
-            {
-              name: '杭州市',
-              id: 21,
-              uid: '21',
-              children: []
-            },
-            {
-              name: '嘉兴市',
-              id: 22,
-              uid: '22',
-              children: [
-                {
-                  name: '海宁市',
-                  id: 221,
-                  uid: '221',
-                  children: []
-                }
-              ]
-            }
-          ]
-        }
-      ],
+      data: [],
       data2: [
         {
           name: '河北省2',
