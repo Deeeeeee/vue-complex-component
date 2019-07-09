@@ -2,7 +2,7 @@
  * @Description: 树形列表组件 支持跨树拖拽 隐藏指定项
  * @Author: Dean
  * @Date: 2019-07-02 10:29:01
- * @LastEditTime: 2019-07-09 16:01:04
+ * @LastEditTime: 2019-07-09 20:07:28
  * @LastEditors: Please set LastEditors
  * @Todo 1.背景色修改 2.返回索引
 -->
@@ -41,6 +41,7 @@
         </slot>
       </p>
       <base-tree v-bind="$attrs"
+                 v-if="!isOneLevel"
                  :data="item[props.children || 'children']"
                  :class="{fold: _isFold(item.uid)}"
                  v-show="!_isFold(item.uid)"
@@ -127,6 +128,10 @@ export default {
     depth: {
       type: Number,
       default: 1
+    },
+    isOneLevel: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
