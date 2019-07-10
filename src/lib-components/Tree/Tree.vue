@@ -2,7 +2,7 @@
  * @Description: 树形列表组件 支持跨树拖拽 隐藏指定项
  * @Author: Dean
  * @Date: 2019-07-02 10:29:01
- * @LastEditTime: 2019-07-10 11:14:54
+ * @LastEditTime: 2019-07-10 14:26:18
  * @LastEditors: Please set LastEditors
  * @Todo 1.背景色修改 2.返回索引
 -->
@@ -25,6 +25,7 @@
     <div class="no-data"
          v-if="depth===1 && data.length === 0">暂无数据</div>
     <li v-for="(item,index) in data"
+        :data-uid="item.uid"
         v-else
         class="base-tree-item"
         :key="item[props.key || 'id']">
@@ -43,6 +44,7 @@
       </p>
       <base-tree :uid="uid"
                  v-bind="$attrs"
+                 v-on="$listeners"
                  v-if="!isOneLevel"
                  :data="item[props.children || 'children']"
                  :class="{fold: _isFold(item.uid)}"
