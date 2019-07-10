@@ -23,7 +23,7 @@
       </base-tree>
     </el-col>
     <el-col :span="12" class="box">
-      <base-tree uid="tree2" :data="data2" :props="{label: 'name',key:'uid'}" :group="{name:'group', pull: 'clone', put: false}" :handleItemClick="onSelect2" @end="onEnd">
+      <base-tree uid="tree2" :data="data2" :props="{label: 'name',key:'uid'}" :group="{name:'group', pull: 'clone', put: false}" :handleItemClick="onSelect2" :handleItemClone="setClone" @end="onEnd">
         <template slot="label" slot-scope="{item,$index}">
           {{item.name}} - {{$index}}
           <i class="el-icon-circle-plus-outline icon"></i>
@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       current: '',
+      clone: {},
       data: [
         {
           name: '河北省',
@@ -160,8 +161,11 @@ export default {
   methods: {
     onSelect(item) {},
     onSelect2(item) {},
+    setClone(item) {
+      console.log(item)
+    },
     onEnd(evt) {
-      console.log(evt.item.dataset.uid)
+      console.log(evt.clone.dataset.uid)
     },
     handleClick2() {
       this.$message('click button2')

@@ -2,7 +2,7 @@
  * @Description: 树形列表组件 支持跨树拖拽 隐藏指定项
  * @Author: Dean
  * @Date: 2019-07-02 10:29:01
- * @LastEditTime: 2019-07-10 14:26:18
+ * @LastEditTime: 2019-07-10 15:41:19
  * @LastEditors: Please set LastEditors
  * @Todo 1.背景色修改 2.返回索引
 -->
@@ -19,7 +19,6 @@
              :list="data"
              :group="group"
              :value="value"
-             :current="current"
              :move="onMove"
              @input="emitter">
     <div class="no-data"
@@ -51,6 +50,7 @@
                  v-show="!_isFold(item.uid)"
                  filter=".no-data"
                  :handleItemClick="handleItemClick"
+                 :handleItemClone="handleItemClone"
                  :group="group"
                  :props="props"
                  :depth="depth + 1"
@@ -126,10 +126,9 @@ export default {
     handleItemClick: {
       type: Function
     },
-    /** 选中项*/
-    current: {
-      type: String,
-      default: ''
+    /** clone并脱出时 返回Promise*/
+    handleItemClone: {
+      type: Function
     },
     /** 层深*/
     depth: {
@@ -145,7 +144,6 @@ export default {
     return {
       folds: [],
       drag: false
-      // current: ''
     }
   },
   watch: {},
@@ -166,23 +164,13 @@ export default {
     onOver(event) {
       console.log(1)
     },
-    onMove(evt, originalEvent) {
-      // console.log(evt.dragged)
-      // console.log(evt.draggedRect)
-      // console.log(evt.dragged.className)
-      // if (document.querySelector('.border-current')) {
-      //   document
-      //     .querySelector('.border-current')
-      //     .classList.remove('border-current')
-      // }
-      // evt.related.classList.add('border-current')
-      // console.log(evt.relatedRect)
-      // console.log(originalEvent.clientY)
-    },
+    onMove(evt, originalEvent) {},
     clone(data) {
       let copy = JSON.parse(JSON.stringify(data))
       let isClone = this.group && this.group.pull === 'clone'
-      return isClone ? this._setUId(copy) : copy
+      let newData = isClone ? this._setUId(copy) : copy
+      this.handleItemClone && this.handleItemClone(newData)
+      return newData
     },
     emitter(value) {
       this.$emit('input', value)
