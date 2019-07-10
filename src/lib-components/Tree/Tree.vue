@@ -2,13 +2,14 @@
  * @Description: 树形列表组件 支持跨树拖拽 隐藏指定项
  * @Author: Dean
  * @Date: 2019-07-02 10:29:01
- * @LastEditTime: 2019-07-09 20:07:28
+ * @LastEditTime: 2019-07-10 11:14:54
  * @LastEditors: Please set LastEditors
  * @Todo 1.背景色修改 2.返回索引
 -->
 
 <template>
   <draggable class="base-tree drag-area"
+             :uid="uid"
              tag="ul"
              v-bind="$attrs"
              v-on="$listeners"
@@ -23,7 +24,7 @@
              @input="emitter">
     <div class="no-data"
          v-if="depth===1 && data.length === 0">暂无数据</div>
-    <li v-for="(item,index) in realValue"
+    <li v-for="(item,index) in data"
         v-else
         class="base-tree-item"
         :key="item[props.key || 'id']">
@@ -40,7 +41,8 @@
           {{ item[props.label || 'label'] }}
         </slot>
       </p>
-      <base-tree v-bind="$attrs"
+      <base-tree :uid="uid"
+                 v-bind="$attrs"
                  v-if="!isOneLevel"
                  :data="item[props.children || 'children']"
                  :class="{fold: _isFold(item.uid)}"
@@ -74,6 +76,9 @@ export default {
     draggable
   },
   props: {
+    uid: {
+      type: String
+    },
     /**
      * 传入的列表数据 使用v-model绑定
      */
@@ -143,16 +148,13 @@ export default {
   },
   watch: {},
   computed: {
-    realValue() {
-      return this.value ? this.value : this.data
-    },
     activeValue() {
-      return EventBus.activeValue
+      return EventBus.activeValue[this.uid]
     }
   },
   created() {
     if (this.depth === 1 && this.handleItemClick) {
-      EventBus.$emit('active', null)
+      EventBus.$emit('active', {id: this.uid, value: null})
     }
   },
   methods: {
@@ -186,7 +188,7 @@ export default {
     /** 点击事件 */
     handleClick(item) {
       if (this.handleItemClick) {
-        EventBus.$emit('active', item.uid)
+        EventBus.$emit('active', {id: this.uid, value: item.uid})
         this.handleItemClick(item)
       }
     },

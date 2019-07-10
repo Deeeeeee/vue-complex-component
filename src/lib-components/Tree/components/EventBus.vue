@@ -4,19 +4,30 @@ export default new Vue({
   name: 'EventBus',
   data() {
     return {
-      activeValue: null
+      activeValue: {}
     }
   },
+
   created() {
     this.$on('active', this.active)
   },
   methods: {
-    active(value) {
-      console.log('activeValue: ', this.activeValue)
-      console.log('value:', value)
-      this.activeValue === value
-        ? (this.activeValue = null)
-        : (this.activeValue = value)
+    /**
+     * @description: 触发选择
+     * @param value {string} 值
+     * @return:
+     */
+    active(data) {
+      const {id, value} = data
+      let obj = {}
+      if (this.activeValue[id] === value) {
+        obj[id] = null
+        this.activeValue = {...this.activeValue, ...obj}
+      } else {
+        obj[id] = value
+        this.activeValue = {...this.activeValue, ...obj}
+      }
+      // console.log('activeValue: ', this.activeValue)
     }
   }
 })
