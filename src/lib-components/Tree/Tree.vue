@@ -2,7 +2,7 @@
  * @Description: 树形列表组件 支持跨树拖拽 隐藏指定项
  * @Author: Dean
  * @Date: 2019-07-02 10:29:01
- * @LastEditTime: 2019-07-10 19:35:36
+ * @LastEditTime: 2019-07-10 20:23:25
  * @LastEditors: Please set LastEditors
  * @Todo 1.背景色修改 2.返回索引
 -->
@@ -17,10 +17,7 @@
              filter=".no-data"
              :clone="clone"
              :list="data"
-             :group="group"
-             :value="value"
-             :move="onMove"
-             @input="emitter">
+             :group="group">
     <div class="no-data"
          v-if="depth===1 && data.length === 0">暂无数据</div>
     <li v-for="(item,index) in data"
@@ -53,8 +50,7 @@
                  :handleItemClone="handleItemClone"
                  :group="group"
                  :props="props"
-                 :depth="depth + 1"
-                 :hidden="hidden">
+                 :depth="depth + 1">
         <template slot="label"
                   slot-scope="{item, $index}">
           <slot name="label"
@@ -106,17 +102,6 @@ export default {
         }
       }
     },
-    // },
-    /** 隐藏参数配置 */
-    hidden: {
-      type: Object,
-      default: () => {
-        return {
-          // key: 'hidden',
-          // value: true,
-        }
-      }
-    },
     /** 组名 */
     group: {
       type: Object,
@@ -164,16 +149,12 @@ export default {
     onOver(event) {
       console.log(1)
     },
-    onMove(evt, originalEvent) {},
     clone(data) {
       let copy = JSON.parse(JSON.stringify(data))
       let isClone = this.group && this.group.pull === 'clone'
       let newData = isClone ? this._setUId(copy) : copy
       this.handleItemClone && this.handleItemClone(newData)
       return newData
-    },
-    emitter(value) {
-      this.$emit('input', value)
     },
     /** 点击事件 */
     handleClick(item) {
@@ -282,7 +263,7 @@ p {
 .base-tree-item-inner:hover {
 } */
 .base-tree-item-inner.current {
-  background-color: aliceblue;
+  background-color: aliceblue !important;
 }
 .el-icon-caret-bottom {
   /* position: absolute;
