@@ -2,7 +2,7 @@
  * @Description: 树形列表组件 支持跨树拖拽 隐藏指定项
  * @Author: Dean
  * @Date: 2019-07-02 10:29:01
- * @LastEditTime: 2019-07-10 15:41:19
+ * @LastEditTime: 2019-07-10 19:35:36
  * @LastEditors: Please set LastEditors
  * @Todo 1.背景色修改 2.返回索引
 -->
@@ -240,9 +240,7 @@ export default {
       let flag
       let children = item[this.props.children || 'children']
       if (children && children.length > 0) {
-        flag =
-          children.filter(item => item[this.hidden.key] !== this.hidden.value)
-            .length > 0
+        flag = true
       } else {
         flag = false
       }
@@ -276,7 +274,7 @@ p {
   padding: 5px;
   padding-left: 20px;
   cursor: pointer;
-  border: solid #ececec 1px;
+  border: solid #ccc 1px;
   background-color: #fff;
   transition: 0.3s;
 }
