@@ -1,6 +1,8 @@
 <template>
   <el-input v-bind="$attrs"
+            v-model="text"
             v-on="$listeners"
+            ref="baseInput"
             @blur="blur">
     <template slot='prefix'>
       <!-- @slot 输入框头部内容，只对 type="text" 有效 -->
@@ -10,9 +12,9 @@
       <!-- @slot 输入框尾部内容，只对 type="text" 有效 -->
       <slot name='suffix'></slot>
     </template> <template slot='prepend'>
-      <!-- @slot 输入框前置内容，只对 type="text" 有效 -->
-      <slot name='prepend'></slot>
-    </template>
+    <!-- @slot 输入框前置内容，只对 type="text" 有效 -->
+    <slot name='prepend'></slot>
+  </template>
     <template slot='append'>
       <!-- @slot 输入框后置内容，只对 type="text" 有效 -->
       <slot name='append'></slot>
@@ -23,20 +25,32 @@
 <script>
 export default {
   name: 'BaseInput',
-  components: {},
   props: {
     /** v-model的值是否去掉前后空格*/
     trim: {
       type: Boolean,
       default: true
-    }
+    },
+    value: {}
   },
   data() {
-    return {}
+    return {
+      text: this.value || ''
+    }
   },
-  computed: {},
-  mounted() {},
-  created() {},
+  watch: {
+    value(val) {
+      console.log('watch')
+      console.log(val)
+      if (val !== undefined) {
+        this.text = val
+      }
+    }
+  },
+  mounted() {
+    console.log('mounted')
+    console.log(this.value)
+  },
   methods: {
     blur() {
       if (this.trim) {
@@ -44,12 +58,13 @@ export default {
          * 用户输入时触发，回调参数为input中的输入值
          * @type {Function}
          */
-        this.$emit('input', this.$attrs.value.trim())
+        console.log('blur')
+        console.log(this.text)
+        this.$emit('input', this.text.trim())
       }
     }
   }
 }
 </script>
-
-<style scoped>
+<style lang="scss" scoped>
 </style>
