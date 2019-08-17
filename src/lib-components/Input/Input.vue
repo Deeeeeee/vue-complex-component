@@ -40,16 +40,10 @@ export default {
   },
   watch: {
     value(val) {
-      console.log('watch')
-      console.log(val)
       if (val !== undefined) {
         this.text = val
       }
     }
-  },
-  mounted() {
-    console.log('mounted')
-    console.log(this.value)
   },
   methods: {
     blur() {
@@ -58,8 +52,6 @@ export default {
          * 用户输入时触发，回调参数为input中的输入值
          * @type {Function}
          */
-        console.log('blur')
-        console.log(this.text)
         this.$emit('input', this.text.trim())
       }
     }
