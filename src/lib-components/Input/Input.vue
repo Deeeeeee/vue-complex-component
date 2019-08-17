@@ -1,3 +1,10 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-17 17:20:15
+ * @LastEditTime: 2019-08-17 17:24:03
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
   <el-input v-bind="$attrs"
             v-model="text"
@@ -12,9 +19,9 @@
       <!-- @slot 输入框尾部内容，只对 type="text" 有效 -->
       <slot name='suffix'></slot>
     </template> <template slot='prepend'>
-    <!-- @slot 输入框前置内容，只对 type="text" 有效 -->
-    <slot name='prepend'></slot>
-  </template>
+      <!-- @slot 输入框前置内容，只对 type="text" 有效 -->
+      <slot name='prepend'></slot>
+    </template>
     <template slot='append'>
       <!-- @slot 输入框后置内容，只对 type="text" 有效 -->
       <slot name='append'></slot>
@@ -58,5 +65,5 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style scoped>
 </style>
