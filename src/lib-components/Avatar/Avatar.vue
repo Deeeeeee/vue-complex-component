@@ -1,19 +1,29 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-21 14:50:50
+ * @LastEditTime: 2019-08-21 15:31:30
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
   <div>
     <div class="demo-image">
-      <div class="block" v-if="!personName">
-        <el-image
-          :style="imageStyle"
-          :src="url"
-          :fit="fit"
-          >
-          <div slot="error" class="image-slot" :style="NoImageStyle">
-            <i class="el-icon-picture-outline"></i>
+      <div class="block"
+           v-if="!personName">
+        <el-image :style="imageStyle"
+                  :src="url"
+                  :fit="fit">
+          <div slot="error"
+               class="image-slot"
+               :style="NoImageStyle">
+            <i class="el-icon-user"></i>
           </div>
         </el-image>
       </div>
     </div>
-    <div class="personName" v-if="personName" :style="personNameStyle">
+    <div class="personName"
+         v-if="personName"
+         :style="personNameStyle">
       {{trueName}}
     </div>
   </div>
@@ -21,7 +31,7 @@
 
 <script>
 export default {
-  name: 'Avatar',
+  name: 'BaseAvatar',
   props: {
     /** 头像的图片地址，如果不传则显示空图片样式 */
     url: {
@@ -116,5 +126,9 @@ export default {
   height: 100px;
   background: #f5f7fa;
   font-size: 24px;
+}
+.el-icon-user {
+  color: #999;
+  font-size: 30px;
 }
 </style>
