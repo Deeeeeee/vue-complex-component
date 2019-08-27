@@ -1,3 +1,11 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-21 14:50:50
+ * @LastEditTime: 2019-08-24 11:15:48
+ * @LastEditors: Please set LastEditors
+ -->
+
 ##### 功能介绍
 
 1.  基于 element-ui
@@ -10,7 +18,7 @@
 <div>
   <div v-for="(item, index) in itemList" :key="index" style="padding: 0px 0px 20px;">
     <div style="color: #666;padding: 5px 0px;">{{item.descriptor}}</div>
-    <avatar
+    <base-avatar
       :url="item.url"
       :radius="item.avatarRadius"
       :fit="item.fit"
@@ -18,7 +26,16 @@
       :backgroundColor="item.backgroundColor"
       :color="item.color"
       :width="item.width"
-      :height="item.height"></avatar>
+      :height="item.height"></base-avatar>
+        <base-avatar
+      :url="item.url"
+      :radius="item.avatarRadius"
+      :fit="item.fit"
+      :personName="item.personName"
+      :backgroundColor="item.backgroundColor"
+      :color="item.color"
+      :width="item.width"
+      :height="item.height"></base-avatar>
   </div>
 </div>
 </template>

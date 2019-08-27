@@ -2,30 +2,25 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-21 14:50:50
- * @LastEditTime: 2019-08-21 15:31:30
+ * @LastEditTime: 2019-08-24 11:20:04
  * @LastEditors: Please set LastEditors
  -->
 <template>
-  <div>
-    <div class="demo-image">
-      <div class="block"
-           v-if="!personName">
-        <el-image :style="imageStyle"
-                  :src="url"
-                  :fit="fit">
-          <div slot="error"
-               class="image-slot"
-               :style="NoImageStyle">
-            <i class="el-icon-user"></i>
-          </div>
-        </el-image>
-      </div>
+  <el-image v-if="!personName"
+            class="avatar-img"
+            :style="imageStyle"
+            :src="url"
+            :fit="fit">
+    <div slot="error"
+         class="image-slot"
+         :style="NoImageStyle">
+      <i class="el-icon-user"></i>
     </div>
-    <div class="personName"
-         v-if="personName"
-         :style="personNameStyle">
-      {{trueName}}
-    </div>
+  </el-image>
+  <div v-else
+       class="personName"
+       :style="personNameStyle">
+    {{trueName}}
   </div>
 </template>
 
@@ -109,6 +104,10 @@ export default {
 </script>
 
 <style>
+.avatar-img {
+  display: block;
+  /* line-height: 0; */
+}
 .personName {
   display: flex;
   justify-content: center;
