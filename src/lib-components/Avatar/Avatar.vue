@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-21 14:50:50
- * @LastEditTime: 2019-08-24 11:20:04
+ * @LastEditTime: 2019-08-28 11:22:16
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -103,7 +103,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .avatar-img {
   display: block;
   /* line-height: 0; */
