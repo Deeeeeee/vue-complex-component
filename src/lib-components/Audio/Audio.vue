@@ -2,16 +2,15 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-21 14:50:50
- * @LastEditTime: 2019-08-28 15:14:19
+ * @LastEditTime: 2019-08-29 10:58:39
  * @LastEditors: Please set LastEditors
  -->
 <template>
   <div class="base-audio">
     <div class="button-group">
-      <el-button type="primary"
-                 size="small"
-                 :icon="buttonClass"
-                 @click="toggle"></el-button>
+      <span :class="buttonClass"
+            class="btn"
+            @click="toggle"></span>
     </div>
     <div class="slider">
       <el-slider v-model="percent"
@@ -171,9 +170,19 @@ export default {
 .button-group {
   width: 80px;
 }
-.button-group .el-button {
+.button-group .btn {
+  display: block;
+  padding: 0 10px;
+  line-height: 40px;
+  background-color: #409eff;
+  color: #fff;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
   font-size: 20px;
+  text-align: center;
+  cursor: pointer;
 }
+
 .slider {
   width: 100%;
   padding-left: 10px;
