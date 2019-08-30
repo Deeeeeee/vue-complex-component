@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-21 14:50:50
- * @LastEditTime: 2019-08-24 11:15:48
+ * @LastEditTime: 2019-08-30 19:28:54
  * @LastEditors: Please set LastEditors
  -->
 
@@ -27,15 +27,7 @@
       :color="item.color"
       :width="item.width"
       :height="item.height"></base-avatar>
-        <base-avatar
-      :url="item.url"
-      :radius="item.avatarRadius"
-      :fit="item.fit"
-      :personName="item.personName"
-      :backgroundColor="item.backgroundColor"
-      :color="item.color"
-      :width="item.width"
-      :height="item.height"></base-avatar>
+       
   </div>
 </div>
 </template>
@@ -83,8 +75,6 @@ export default {
           fit: 'fill',
           backgroundColor: '',
           color: '',
-          width: '',
-          height: '',
           descriptor: '图片加载失败' // 用于描述，并不是配置的属性
         },
         {

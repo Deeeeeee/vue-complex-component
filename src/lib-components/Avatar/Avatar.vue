@@ -2,25 +2,27 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-21 14:50:50
- * @LastEditTime: 2019-08-28 11:22:16
+ * @LastEditTime: 2019-08-30 19:27:21
  * @LastEditors: Please set LastEditors
  -->
 <template>
-  <el-image v-if="!personName"
-            class="avatar-img"
-            :style="imageStyle"
-            :src="url"
-            :fit="fit">
-    <div slot="error"
-         class="image-slot"
-         :style="NoImageStyle">
-      <i class="el-icon-user"></i>
+  <div class="base-avatar">
+    <el-image v-if="!personName"
+              class="avatar-img"
+              :style="imageStyle"
+              :src="url"
+              :fit="fit">
+      <div slot="error"
+           class="image-slot"
+           :style="NoImageStyle">
+        <i class="el-icon-user"></i>
+      </div>
+    </el-image>
+    <div v-else
+         class="personName"
+         :style="personNameStyle">
+      {{trueName}}
     </div>
-  </el-image>
-  <div v-else
-       class="personName"
-       :style="personNameStyle">
-    {{trueName}}
   </div>
 </template>
 
@@ -54,11 +56,13 @@ export default {
     },
     /** 图片的宽度（除了百分比，其他需带上像素单位）*/
     width: {
-      type: String
+      type: String,
+      default: '100px'
     },
     /** 图片的高度（除了百分比，其他需带上像素单位）*/
     height: {
-      type: String
+      type: String,
+      default: '100px'
     }
   },
   data() {
@@ -95,17 +99,24 @@ export default {
               height: ${this.height};`
     },
     NoImageStyle() {
-      return `width: ${this.width};
+      return `
+              width: ${this.width};
               height: ${this.height};
-              borderRadius: ${this.radius};`
+              borderRadius: ${this.radius};
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: #f5f7fa;
+              font-size: 24px;
+              `
     }
   }
 }
 </script>
 
 <style scoped>
-.avatar-img {
-  display: block;
+.base-avatar {
+  display: inline-block;
   /* line-height: 0; */
 }
 .personName {
