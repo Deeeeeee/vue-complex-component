@@ -52,7 +52,7 @@ export default {
          * 用户输入时触发，回调参数为input中的输入值
          * @type {Function}
          */
-        this.$emit('input', this.text.trim())
+        this.$emit('input', (this.text + '').trim())
       }
     }
   }
