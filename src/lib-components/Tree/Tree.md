@@ -14,16 +14,16 @@
   </el-row>
   <el-row :gutter="20">
     <el-col :span="12" class="box">
-      <base-tree :data="data" :props="{label: 'name',key:'uid'}" :group="{name:'group'}" :hidden="{key:'hidden', value: true}" :handleItemClick="onSelect">
+      <base-tree uid="tree1" :data="data" :props="{label: 'name',key:'uid'}" :group="{name:'group'}"  :handleItemClick="onSelect" >
         <template slot="label" slot-scope="{item,$index}">
-          {{item.name}} - {{$index}}
+          {{item.name}}
           <i class="el-icon-circle-plus-outline icon"></i>
           <i class="el-icon-delete icon"></i>
         </template>
       </base-tree>
     </el-col>
     <el-col :span="12" class="box">
-      <base-tree :data="data2" :props="{label: 'name',key:'uid'}" :group="{name:'group', pull: 'clone', put: false}">
+      <base-tree uid="tree2" :data="data2" :props="{label: 'name',key:'uid'}" :group="{name:'group', pull: 'clone', put: false}" :handleItemClick="onSelect2" :handleItemClone="setClone" @end="onEnd">
         <template slot="label" slot-scope="{item,$index}">
           {{item.name}} - {{$index}}
           <i class="el-icon-circle-plus-outline icon"></i>
@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       current: '',
+      clone: {},
       data: [
         {
           name: '河北省',
@@ -158,8 +159,13 @@ export default {
     }
   },
   methods: {
-    onSelect(item) {
+    onSelect(item) {},
+    onSelect2(item) {},
+    setClone(item) {
       console.log(item)
+    },
+    onEnd(evt) {
+      console.log(evt.clone.dataset.uid)
     },
     handleClick2() {
       this.$message('click button2')

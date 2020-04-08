@@ -13,7 +13,7 @@
   <base-button @click="handleClick2" type="warning"> Base Button </base-button>
   <base-button :link="{path:'/home',query:{id:100}}" type="success"> Link Button </base-button>
   <base-button outLink="http://www.baidu.com" type="success"> Out Link Button </base-button>
-</div> 
+</div>
 </template>
 
 <script>

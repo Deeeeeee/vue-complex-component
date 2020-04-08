@@ -2,32 +2,27 @@
  * @Description: 树形列表组件 支持跨树拖拽 隐藏指定项
  * @Author: Dean
  * @Date: 2019-07-02 10:29:01
- * @LastEditTime: 2019-07-08 15:24:48
+ * @LastEditTime: 2019-07-10 20:23:25
  * @LastEditors: Please set LastEditors
  * @Todo 1.背景色修改 2.返回索引
 -->
 
 <template>
   <draggable class="base-tree drag-area"
+             :uid="uid"
              tag="ul"
              v-bind="$attrs"
              v-on="$listeners"
              ghostClass="tree-gost"
+             filter=".no-data"
              :clone="clone"
              :list="data"
-             :group="group"
-             :value="value"
-             :current="current"
-             :move="onMove"
-             @input="emitter">
-    <!-- {{'attrs:' + JSON.stringify($attrs)}} -->
-    <!-- {{'current:' + this.current}} -->
-
-    <!-- <transition-group type="transition" :name="!drag ? 'flip-list' : null"> -->
-    <!-- <transition-group type="transition"
-                      name="flip-list"> -->
-    <li v-for="(item,index) in realValue"
-        v-if="!(item[hidden.key] && item[hidden.key] === hidden.value)"
+             :group="group">
+    <div class="no-data"
+         v-if="depth===1 && data.length === 0">暂无数据</div>
+    <li v-for="(item,index) in data"
+        :data-uid="item.uid"
+        v-else
         class="base-tree-item"
         :key="item[props.key || 'id']">
       <p class="base-tree-item-inner"
@@ -43,15 +38,19 @@
           {{ item[props.label || 'label'] }}
         </slot>
       </p>
-      <base-tree v-bind="$attrs"
+      <base-tree :uid="uid"
+                 v-bind="$attrs"
+                 v-on="$listeners"
+                 v-if="!isOneLevel"
                  :data="item[props.children || 'children']"
                  :class="{fold: _isFold(item.uid)}"
                  v-show="!_isFold(item.uid)"
+                 filter=".no-data"
                  :handleItemClick="handleItemClick"
+                 :handleItemClone="handleItemClone"
                  :group="group"
                  :props="props"
-                 :depth="depth + 1"
-                 :hidden="hidden">
+                 :depth="depth + 1">
         <template slot="label"
                   slot-scope="{item, $index}">
           <slot name="label"
@@ -62,7 +61,6 @@
         </template>
       </base-tree>
     </li>
-    <!-- </transition-group> -->
   </draggable>
 </template>
 
@@ -76,6 +74,9 @@ export default {
     draggable
   },
   props: {
+    uid: {
+      type: String
+    },
     /**
      * 传入的列表数据 使用v-model绑定
      */
@@ -101,17 +102,6 @@ export default {
         }
       }
     },
-    // },
-    /** 隐藏参数配置 */
-    hidden: {
-      type: Object,
-      default: () => {
-        return {
-          // key: 'hidden',
-          // value: true,
-        }
-      }
-    },
     /** 组名 */
     group: {
       type: Object,
@@ -121,36 +111,35 @@ export default {
     handleItemClick: {
       type: Function
     },
-    /** 选中项*/
-    current: {
-      type: String,
-      default: ''
+    /** clone并脱出时 返回Promise*/
+    handleItemClone: {
+      type: Function
     },
     /** 层深*/
     depth: {
       type: Number,
       default: 1
+    },
+    isOneLevel: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       folds: [],
       drag: false
-      // current: ''
     }
   },
   watch: {},
   computed: {
-    realValue() {
-      return this.value ? this.value : this.data
-    },
     activeValue() {
-      return EventBus.activeValue
+      return EventBus.activeValue[this.uid]
     }
   },
   created() {
     if (this.depth === 1 && this.handleItemClick) {
-      EventBus.$emit('active', null)
+      EventBus.$emit('active', {id: this.uid, value: null})
     }
   },
   methods: {
@@ -160,33 +149,17 @@ export default {
     onOver(event) {
       console.log(1)
     },
-    onMove(evt, originalEvent) {
-      // this.$refs.BaseTree.save()
-      // console.log(originalEvent.clientY)
-      // console.log(evt.dragged)
-      // console.log(evt.draggedRect)
-      // console.log(evt.dragged.className)
-      // if (document.querySelector('.border-current')) {
-      //   document
-      //     .querySelector('.border-current')
-      //     .classList.remove('border-current')
-      // }
-      // evt.related.classList.add('border-current')
-      // console.log(evt.relatedRect)
-      // console.log(originalEvent.clientY)
-    },
     clone(data) {
       let copy = JSON.parse(JSON.stringify(data))
       let isClone = this.group && this.group.pull === 'clone'
-      return isClone ? this._setUId(copy) : copy
-    },
-    emitter(value) {
-      this.$emit('input', value)
+      let newData = isClone ? this._setUId(copy) : copy
+      this.handleItemClone && this.handleItemClone(newData)
+      return newData
     },
     /** 点击事件 */
     handleClick(item) {
       if (this.handleItemClick) {
-        EventBus.$emit('active', item.uid)
+        EventBus.$emit('active', {id: this.uid, value: item.uid})
         this.handleItemClick(item)
       }
     },
@@ -248,9 +221,7 @@ export default {
       let flag
       let children = item[this.props.children || 'children']
       if (children && children.length > 0) {
-        flag =
-          children.filter(item => item[this.hidden.key] !== this.hidden.value)
-            .length > 0
+        flag = true
       } else {
         flag = false
       }
@@ -284,7 +255,7 @@ p {
   padding: 5px;
   padding-left: 20px;
   cursor: pointer;
-  border: solid #ececec 1px;
+  border: solid #ccc 1px;
   background-color: #fff;
   transition: 0.3s;
 }
@@ -292,7 +263,7 @@ p {
 .base-tree-item-inner:hover {
 } */
 .base-tree-item-inner.current {
-  background-color: aliceblue;
+  background-color: aliceblue !important;
 }
 .el-icon-caret-bottom {
   /* position: absolute;
@@ -312,5 +283,13 @@ p {
 
 .flip-list-move {
   transition: transform 0.5s;
+}
+.border-current {
+  border-top: 1px solid blueviolet;
+}
+.no-data {
+  color: #999;
+  line-height: 50px;
+  text-align: center;
 }
 </style>
